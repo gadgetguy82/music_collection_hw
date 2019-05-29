@@ -37,6 +37,13 @@ class Artist
     return albums.map{|album| Album.new(album)}
   end
 
+  def self.find(id)
+    sql = "SELECT * FROM artists WHERE id = $1"
+    values = [id]
+    artist = SqlRunner.run(sql, values)[0]
+    return Artist.new(artist)
+  end
+
   def self.list_all
     sql = "SELECT * FROM artists"
     artists = SqlRunner.run(sql)
